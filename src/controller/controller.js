@@ -9,10 +9,16 @@ const login = async (req, res) => {
     }); 
   }
   const { status, data } = await userService.login(email, password);
-  console.log(status, data);
+  return res.status(mapStatus(status)).json(data);
+};
+
+const createUser = async (req, res) => {
+  const newUser = req.body;
+  const { status, data } = await userService.createUser(newUser);
   return res.status(mapStatus(status)).json(data);
 };
 
 module.exports = {
   login,
+  createUser,
 };
