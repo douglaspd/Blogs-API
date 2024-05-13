@@ -5,6 +5,6 @@ const validate = (email, password) => {
     return { status: 'BAD_REQUEST', 
       data: { message: 'Some required fields are missing' } };
   }
-}
+};
 
 module.exports = validate;
