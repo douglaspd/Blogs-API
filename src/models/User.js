@@ -20,10 +20,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(255)
     },
     }, {
-      tablename: 'users', 
+      tableName: 'users',
       timestamps: false,
       underscored: true, 
     });
+
+    User.associate = (models) => {
+      User.hasMany(models.BlogPost, {
+        foreignKey: 'user_id',
+        as: 'blogPosts',
+      })
+    }
     
   return User;
 };
