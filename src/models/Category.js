@@ -14,6 +14,15 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
       underscored: true, 
     });
+
+    Category.associate = (models) => {
+      Category.belongsToMany(models.BlogPost, {
+        as: 'blog_posts',
+        through: 'posts_categories',
+        foreignKey: 'category_id',
+        otherKey: 'post_id',
+      })
+    }
     
   return Category;
 };
