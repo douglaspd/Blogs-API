@@ -16,10 +16,12 @@ const findAllUser = async () => {
 
 const findUserById = async (id) => {
   try {
-    const user = await User.findByPk(id);
-    if (user) {
-      return { status: 'SUCCESS', data: user }; 
+    const user = await User.findByPk(id, { attributes: { exclude: ['password'] },
+    });
+    if (!user) {
+      return { status: 'NOT_FOUND', data: { message: 'User does not exist' } };
     }
+    return { status: 'SUCCESS', data: user };
   } catch (error) {
     return { status: 'SERVER_ERROR', data: { message: 'Server error' } };
   }

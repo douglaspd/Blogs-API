@@ -15,7 +15,7 @@ app.use(express.json());
 app.post('/login', userController.login);
 app.post('/user', userController.createUser);
 app.get('/user', authToken, userController.findUser);
-app.get('/user:id', authToken, userController.findUserById);
+app.get('/user/:id', authToken, userController.findUserById);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
