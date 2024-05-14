@@ -8,11 +8,7 @@ const login = async (email, password) => {
     if (!user || user.password !== password) {
       return { status: 'BAD_REQUEST', data: { message: 'Invalid fields' } };
     }
-    const tokenAuth = auth.createToken({ id: user.id,
-      email: user.email, 
-      displayName: user.display_name,
-      expiresIn: '1h',
-    });
+    const tokenAuth = auth.createToken({ email: user.email });
     return { status: 'SUCCESS', data: { token: tokenAuth } };
   } catch (error) {
     return { status: 'SERVER_ERROR', data: { message: 'Erro created' },
@@ -35,14 +31,9 @@ const validUserExist = async (newUser) => {
 const createUser = async (newUser) => {
   try {
     const valid = await validUserExist(newUser);
-    console.log(valid);
     if (valid.status === 'SUCCESS') {
       const user = await User.create(newUser);
-      const tokenAuth = auth.createToken({ id: user.id,
-        email: user.email, 
-        displayName: user.display_name,
-        expiresIn: '1h',
-      });
+      const tokenAuth = auth.createToken({ email: user.email });
       return { status: 'CREATED', data: { token: tokenAuth } };
     }
     return valid;

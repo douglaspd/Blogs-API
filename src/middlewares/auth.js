@@ -1,15 +1,24 @@
-const auth = require('../utills/auth');
+const { decoded } = require('../utills/auth');
 
-module.exports = (req, res, next) => {
-  const token = req.headers.authorization;
-  if (token === undefined) {
-    return { status: 'UNAUTHORIZED', data: { message: 'Token not found' } };
+function extractToken(bearerToken) {
+  return bearerToken.split(' ')[1];
+}
+
+const authToken = async (req, res, next) => {
+  const bearerToken = req.header('Authorization');
+  if (!bearerToken) {
+    return res.status(401).json({ status: 'UNAUTHORIZED', message: 'Token not found' });
   }
   try {
-    const user = auth.verify(token);
-    req.locals = { user };
+    const token = extractToken(bearerToken);
+    const decod = decoded(token);
+    console.log(decod);
     next();
   } catch (error) {
-    return { status: 'UNAUTHORIZED', data: { message: 'jwt malformed' } };
+    return res.status(401).json({ status: 'UNAUTHORIZED', message: 'Expired or invalid token' });
   }
+};
+
+module.exports = {
+  authToken,
 };

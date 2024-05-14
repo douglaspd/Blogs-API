@@ -3,8 +3,7 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'secretJWT';
 
 const JWT_CONFIG = { 
-  algorithm: 'HS256', 
-  expiresIn: '1h', 
+  algorithm: 'HS256',
 };
 
 const createToken = (payload) => {
@@ -12,12 +11,12 @@ const createToken = (payload) => {
   return token;
 };
 
-const verify = (token) => {
+const decoded = (token) => {
   const payload = jwt.verify(token, JWT_SECRET);
   return payload;
 };
 
-module.exports = { 
+module.exports = {
   createToken,
-  verify,
+  decoded,
 };
