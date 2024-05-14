@@ -16,6 +16,20 @@ const createCategory = async (newCategory) => {
   }
 };
 
+const findCategory = async () => {
+  try {
+    const category = await Category.findAll();
+    if (category) {
+      return { status: 'SUCCESS', data: category };
+    }
+    return { status: 'NOT_FOUND', data: { message: 'category not found' } };  
+  } catch (error) {
+    return { status: 'SERVER_ERROR', data: { message: 'Erro created' },
+    };
+  }
+};
+
 module.exports = {
   createCategory,
+  findCategory,
 };

@@ -18,6 +18,7 @@ app.post('/user', userController.createUser);
 app.get('/user', authToken, userController.findUser);
 app.get('/user/:id', authToken, userController.findUserById);
 app.post('/categories', authToken, categoryController.createCategory);
+app.get('/categories', authToken, categoryController.findCategory);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
