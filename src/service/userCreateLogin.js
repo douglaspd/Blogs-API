@@ -5,6 +5,7 @@ const { validateUser } = require('../utills/validateUser');
 const login = async (email, password) => {
   try { 
     const user = await User.findOne({ where: { email } });
+    console.log('aqui', user);
     if (!user || user.password !== password) {
       return { status: 'BAD_REQUEST', data: { message: 'Invalid fields' } };
     }

@@ -12,7 +12,7 @@ const authToken = async (req, res, next) => {
   try {
     const token = extractToken(bearerToken);
     const decod = decoded(token);
-    console.log(decod);
+    req.user = decod;
     next();
   } catch (error) {
     return res.status(401).json({ status: 'UNAUTHORIZED', message: 'Expired or invalid token' });
