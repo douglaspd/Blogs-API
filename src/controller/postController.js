@@ -8,6 +8,12 @@ const createPost = async (req, res) => {
   return res.status(mapStatus(status)).json(data);
 };
 
+const findPost = async (req, res) => {
+  const { status, data } = await postService.findPost();
+  return res.status(mapStatus(status)).json(data);
+};
+
 module.exports = {
   createPost,
+  findPost,
 };
