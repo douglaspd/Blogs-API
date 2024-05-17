@@ -21,17 +21,8 @@ const createPost = async ({ email, title, content, categoryIds }) => {
 const findPost = async () => {
   try {
     const posts = await BlogPost.findAll({
-      include: [{ 
-        model: User, 
-        as: 'user', 
-        attributes: { exclude: ['password'] },
-      },
-      {
-        model: Category,
-        as: 'categories',
-        through: { attributes: [] },
-      },
-      ],
+      include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } }],
     });
     return { status: 'SUCCESS', data: posts };
   } catch (error) {
@@ -39,7 +30,19 @@ const findPost = async () => {
   }
 };
 
-module.exports = {
-  createPost,
-  findPost,
+const findPostByPk = async (id) => {
+  try {
+    const posts = await BlogPost.findByPk(id, {
+      include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }, 
+        { model: Category, as: 'categories', through: { attributes: [] } }],
+    });
+    if (posts) {
+      return { status: 'SUCCESS', data: posts };
+    }
+    return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+  } catch (error) {
+    return { status: 'SERVER_ERROR', data: { message: `ERROR: ${error.message}` } };
+  }
 };
+
+module.exports = { createPost, findPost, findPostByPk };
