@@ -10,7 +10,7 @@ const createPost = async ({ email, title, content, categoryIds }) => {
         categoryId: category,
       }));
       await PostCategory.bulkCreate(postsCategories);
-      return { status: 'CREATED', data: (await validate).data };
+      return { status: 'CREATED', data: validate.data };
     }
     return validate;
   } catch (error) {

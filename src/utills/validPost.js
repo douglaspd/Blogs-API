@@ -31,6 +31,14 @@ const createNewPost = async ({ email, title, content, categoryIds }) => {
   }
 };
 
+const validUpdate = async ({ title, content }) => {
+  if (title === '' || content === '') {
+    return { status: 'BAD_REQUEST', data: { message: 'Some required fields are missing' } };
+  }
+  return { status: 'SUCCESS' };
+};
+
 module.exports = {
   createNewPost,
+  validUpdate,
 };

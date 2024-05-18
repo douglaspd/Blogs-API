@@ -23,6 +23,7 @@ app.get('/categories', authToken, categoryController.findCategory);
 app.post('/post', authToken, postController.createPost);
 app.get('/post', authToken, postController.findPost);
 app.get('/post/:id', authToken, postController.findPostByPk);
+app.put('/post/:id', authToken, postController.updatePost);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
