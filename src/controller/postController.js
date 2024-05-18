@@ -24,7 +24,8 @@ const updatePost = async (req, res) => {
   const { id } = req.params;
   const { email } = req.user;
   const { title, content } = req.body;
-  const { status, data } = await postUpdateService.updatePost({ id, email, title, content });
+  const { status, data } = await postUpdateService.updatePost({ 
+    id, email, title, content });
   return res.status(mapStatus(status)).json(data);
 };
 
